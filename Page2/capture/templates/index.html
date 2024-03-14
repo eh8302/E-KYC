@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Capture</title>
+    <link href="styless.css" rel="stylesheet">
+</head>
+<body>
+        <h1>Image Capture</h1>
+        <div class="container">
+            <div class="video-container">
+                <video id="video" width="440" height="480" autoplay></video>
+                <button id="capture-btn">Capture Image</button>
+                <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+            </div>
+            <div class="image-container" id="captured-image"></div>
+        </div>
+
+        <a href="success.html" class="next-btn">Next</a>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(err) {
+            console.error("Error accessing the camera: " + err);
+        });
+
+        document.getElementById('capture-btn').addEventListener('click', function() {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            var image = canvas.toDataURL('image/jpeg');
+            // Display the captured image
+            var capturedImageDiv = document.getElementById('captured-image');
+            var img = new Image();
+            img.src = image;
+            capturedImageDiv.innerHTML = '';
+            capturedImageDiv.appendChild(img);
+        });
+    </script>
+</body>
+</html>

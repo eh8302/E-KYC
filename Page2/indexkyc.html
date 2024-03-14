@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-KYC</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Styles for the popup background overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    
+    /* Styles for the popup container */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+    
+    /* Styles for the close button */
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: #555;
+    }
+    
+    /* Styles for the document list */
+    .popup h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .popup ol {
+      list-style-type: decimal;
+      padding-left: 20px;
+      color: #555;
+    }
+    
+    /* Styles for the proceed button */
+    .proceed-btn {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    
+    .proceed-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Additional styles for the form */
+    .form-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group img {
+      margin-bottom: 5px;
+    }
+
+    .terms-checkbox {
+      margin-top: 10px;
+    }
+
+    .terms-checkbox label {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup" id="popup">
+      <span class="close" onclick="closePopup()">×</span>
+      <h2>Keep the following documents in Original before connecting to E-KYC</h2>
+      <ol>
+        <li>Aadhaar Card</li>
+        <li>PAN Card</li>
+        <li>White paper in blank with Blue / black pen</li>
+      </ol>
+      <button class="proceed-btn" onclick="closePopup()">Proceed</button>
+    </div>
+    
+    <script>
+      // Function to display the popup
+      function showPopup() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+        overlay.style.display = "block";
+        popup.style.display = "block";
+      }
+    
+      // Function to close the popup
+      function closePopup() {
+        var overlay = document.getElementById("overlay");
+        var popup = document.getElementById("popup");
+        overlay.style.display = "none";
+        popup.style.display = "none";
+      }
+    
+      // Show the popup when the page loads
+      window.onload = function() {
+        showPopup();
+      };
+    </script>
+    
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo">E-KYC</h1>
+    </div>
+  </nav>
+  
+  <div class="form-container">
+    <form action="#">
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number *</label>
+        <input type="text" id="mobile" name="mobile" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Id</label>
+        <input type="email" id="email" name="email">
+      </div>
+      
+      <div class="form-group terms-checkbox">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I accept the Terms and Conditions</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="aadhaar_agreement" name="aadhaar_agreement" required>
+        <label for="aadhaar_agreement">I agree to submit Aadhaar number for account opening and authorize Indian Bank to fetch my personal details from UIDAI.</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="no_other_account" name="no_other_account" required>
+        <label for="no_other_account">I declare that no other account has been opened nor will be opened using OTP based e-KYC with Indian Bank or any other Bank.</label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="indian_citizen" name="indian_citizen" required>
+        <label for="indian_citizen">I confirm that I am an Indian citizen.</label>
+      </div>
+    </form>
+    <a href="capture/templates/index.html" class="proceed-btn">Next</a>
+  </div>
+</body>
+</html>
